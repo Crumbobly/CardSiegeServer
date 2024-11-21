@@ -1,5 +1,5 @@
 
-
+# TODO ("Дописать класс карты")
 class Card:
 
     def __init__(self, name):

@@ -1,11 +1,13 @@
 import asyncio
 import json
+import time
 import uuid
 import websockets
 
 from database.database import DataBase
 from managers.auth_manager import AuthManager
-from managers.game_manager import GameManager
+from managers.game_chat_manager import GameChatManager
+from utils.game_list import GameList
 from managers.lobby_manager import LobbyManager
 from utils.request import Request
 from utils.request_handler import RequestHandler
@@ -23,7 +25,8 @@ class Server:
 
         self.auth_manager: AuthManager = AuthManager(self)
         self.lobby_manager: LobbyManager = LobbyManager(self)
-        self.game_manager: GameManager = GameManager(self)
+        self.game_chat_manager: GameChatManager = GameChatManager(self)
+        self.game_list: GameList = GameList(self)
 
     async def handle_connection(self, websocket):
 
@@ -50,7 +53,8 @@ class Server:
         except websockets.ConnectionClosed as e:
             if user_id in self.lobby_manager.waiting_set:
                 self.lobby_manager.remove_queue(user_id)
-            self.auth_manager.remove_auth(user_id)
+            if user_id in self.auth_manager.auth_users.keys():
+                self.auth_manager.remove_auth(user_id)
             self.connected_users.pop(user_id)
             print("Соединение закрыто:", e)
 
@@ -58,6 +62,11 @@ class Server:
         websocket = self.connected_users[user_id]
         request_json = json.dumps(request.to_dict())
         await websocket.send(request_json)
+
+    async def ping(self, class_callback, func_callback, client_time, user_id):
+        client_server_time = time.time()
+        request = Request(class_callback, func_callback, [client_server_time])
+        await self.send_request(user_id, request)
 
     async def start(self):
         async with websockets.serve(self.handle_connection, "0.0.0.0", 12345):

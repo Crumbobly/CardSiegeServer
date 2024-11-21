@@ -3,7 +3,7 @@ from domain.game import Game
 from domain.library import Library
 
 
-class GameManager:
+class GameList:
 
     def __init__(self, server):
         self.server = server

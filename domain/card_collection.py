@@ -7,4 +7,4 @@ class CardCollection:
         self.cards: list[Card] = []
 
     def to_dict(self):
-        return {"cards": [card.to_dict() for card in self.cards]}
+        return [card.to_dict() for card in self.cards]
