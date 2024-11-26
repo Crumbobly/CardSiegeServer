@@ -35,7 +35,6 @@ class Server:
         print(f"Пользователь {user_id} подключился.")
 
         try:
-
             async for message in websocket:
                 data = json.loads(message)
                 scene_class_name = data.get("scene_class_name")
