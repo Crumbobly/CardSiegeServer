@@ -1,10 +1,10 @@
 from random import random
 
-from domain.card.card import Card
-from domain.field import Field
-from domain.hand import Hand
-from domain.library import Library
-from domain.resources import Resources
+from services.game_service.card.card import Card
+from services.game_service.field import Field
+from services.game_service.hand import Hand
+from services.game_service.library import Library
+from services.game_service.resources import Resources
 import random
 
 

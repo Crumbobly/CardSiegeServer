@@ -1,4 +1,4 @@
-from domain.card_collection import CardCollection
+from services.game_service.card_collection import CardCollection
 
 
 class Hand(CardCollection):
