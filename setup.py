@@ -47,6 +47,7 @@ setup(
         ]
     },
     data_files=[
+        'logging.ini'
     ],
     include_package_data=True
 )
