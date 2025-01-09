@@ -1,0 +1,8 @@
+websockets
+SQLAlchemy
+alembic
+asyncpg
+
+dependency-injector
+passlib
+six
