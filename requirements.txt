@@ -1,0 +1,10 @@
+websockets
+SQLAlchemy
+alembic
+asyncpg
+
+dependency-injector
+passlib
+uvloop
+aiomisc[uvloop]
+six
